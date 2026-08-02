@@ -11,7 +11,7 @@ export type ChatMessage = {
   role: ChatRole;
   text: string;
   createdAt: number;
-  card?: MessageCard;
+  card?: MessageCard | undefined;
 };
 
 export type Conversation = {

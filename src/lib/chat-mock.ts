@@ -112,7 +112,7 @@ export function generateReply(mode: ChatMode, userText: string, history: ChatMes
           "Signals of severe distress were detected in this conversation. A licensed professional should be involved.",
       };
     } else {
-      text = MIND_REPLIES[Math.min(userTurns, MIND_REPLIES.length - 1)];
+      text = MIND_REPLIES[Math.min(userTurns, MIND_REPLIES.length - 1)] ?? MIND_REPLIES[0]!;
     }
   } else {
     const emergency = includesAny(userText, EMERGENCY_SIGNALS);
@@ -123,9 +123,9 @@ export function generateReply(mode: ChatMode, userText: string, history: ChatMes
         : "Thanks for working through those questions with me. Here's how I'd read what you've described.";
       card = { kind: "severity", level, explanation };
     } else {
-      text = HEALTH_FOLLOWUPS[userTurns];
+      text = HEALTH_FOLLOWUPS[userTurns] ?? HEALTH_FOLLOWUPS[0]!;
     }
   }
 
-  return { id: createId(), role: "assistant", text, createdAt: Date.now(), card };
+  return { id: createId(), role: "assistant", text, createdAt: Date.now(), ...(card ? { card } : {}) };
 }

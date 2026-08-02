@@ -102,7 +102,8 @@ export function useChatStore() {
           setActiveIds((ids) => ({ ...ids, [mode]: conv.id }));
           return [conv, ...next];
         }
-        setActiveIds((ids) => (ids[mode] === id ? { ...ids, [mode]: remaining[0].id } : ids));
+        const fallback = remaining[0];
+        setActiveIds((ids) => (ids[mode] === id && fallback ? { ...ids, [mode]: fallback.id } : ids));
         return next;
       });
     },
