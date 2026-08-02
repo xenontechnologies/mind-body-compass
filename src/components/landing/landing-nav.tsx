@@ -46,13 +46,13 @@ export function LandingNav() {
         <div className="ml-auto flex items-center gap-2">
           <ThemeToggle />
           <Link
-            to="/chat"
+            to="/login"
             className="hidden rounded-md border border-border px-3 py-1.5 text-xs text-secondary-foreground transition-colors duration-150 hover:bg-hover hover:text-foreground sm:inline-flex"
           >
             Sign In
           </Link>
           <Link
-            to="/chat"
+            to="/register"
             className="rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-opacity duration-150 hover:opacity-90"
           >
             Get Started
