@@ -103,7 +103,7 @@ export function LandingFooter() {
             {[
               { label: "X", href: "/privacy-policy" },
               { label: "LinkedIn", href: "#about" },
-              { label: "Instagram", href: "#testimonials" },
+              { label: "Instagram", href: "/register" },
               { label: "GitHub", href: "/chat" },
             ].map((s) => (
               <li key={s.label}>

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { LandingNav } from "../components/landing/landing-nav";
 import { Hero } from "../components/landing/hero";
 import { TrustBar } from "../components/landing/trust-bar";
@@ -51,6 +51,38 @@ function LandingPage() {
         <Faq />
         <Investors />
         <Contact />
+
+        <section className="border-t border-border bg-card">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-12 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="label-xs">Account</p>
+              <h2 className="mt-2 text-lg font-medium text-foreground">Access your workspace</h2>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                Use the auth and settings pages to explore the site structure.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to="/login"
+                className="inline-flex items-center rounded-md bg-primary px-4 py-2.5 text-xs font-medium text-primary-foreground transition-opacity duration-150 hover:opacity-90"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="inline-flex items-center rounded-md border border-border bg-surface px-4 py-2.5 text-xs text-secondary-foreground transition-colors duration-150 hover:bg-hover hover:text-foreground"
+              >
+                Register
+              </Link>
+              <Link
+                to="/settings"
+                className="inline-flex items-center rounded-md border border-border bg-surface px-4 py-2.5 text-xs text-secondary-foreground transition-colors duration-150 hover:bg-hover hover:text-foreground"
+              >
+                Settings
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
       <LandingFooter />
     </div>

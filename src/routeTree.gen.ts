@@ -13,7 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as DataProcessingRouteImport } from './routes/data-processing'
 import { Route as KenyaHotlinesRouteImport } from './routes/kenya-hotlines'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 
 const IndexRoute = IndexRouteImport.update({
@@ -36,9 +39,24 @@ const KenyaHotlinesRoute = KenyaHotlinesRouteImport.update({
   path: '/kenya-hotlines',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
@@ -52,7 +70,10 @@ export interface FileRoutesByFullPath {
   '/chat': typeof ChatRoute
   '/data-processing': typeof DataProcessingRoute
   '/kenya-hotlines': typeof KenyaHotlinesRoute
+  '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/register': typeof RegisterRoute
+  '/settings': typeof SettingsRoute
   '/terms-of-service': typeof TermsOfServiceRoute
 }
 export interface FileRoutesByTo {
@@ -60,7 +81,10 @@ export interface FileRoutesByTo {
   '/chat': typeof ChatRoute
   '/data-processing': typeof DataProcessingRoute
   '/kenya-hotlines': typeof KenyaHotlinesRoute
+  '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/register': typeof RegisterRoute
+  '/settings': typeof SettingsRoute
   '/terms-of-service': typeof TermsOfServiceRoute
 }
 export interface FileRoutesById {
@@ -69,7 +93,10 @@ export interface FileRoutesById {
   '/chat': typeof ChatRoute
   '/data-processing': typeof DataProcessingRoute
   '/kenya-hotlines': typeof KenyaHotlinesRoute
+  '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/register': typeof RegisterRoute
+  '/settings': typeof SettingsRoute
   '/terms-of-service': typeof TermsOfServiceRoute
 }
 export interface FileRouteTypes {
@@ -79,7 +106,10 @@ export interface FileRouteTypes {
     | '/chat'
     | '/data-processing'
     | '/kenya-hotlines'
+    | '/login'
     | '/privacy-policy'
+    | '/register'
+    | '/settings'
     | '/terms-of-service'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -87,7 +117,10 @@ export interface FileRouteTypes {
     | '/chat'
     | '/data-processing'
     | '/kenya-hotlines'
+    | '/login'
     | '/privacy-policy'
+    | '/register'
+    | '/settings'
     | '/terms-of-service'
   id:
     | '__root__'
@@ -95,7 +128,10 @@ export interface FileRouteTypes {
     | '/chat'
     | '/data-processing'
     | '/kenya-hotlines'
+    | '/login'
     | '/privacy-policy'
+    | '/register'
+    | '/settings'
     | '/terms-of-service'
   fileRoutesById: FileRoutesById
 }
@@ -104,7 +140,10 @@ export interface RootRouteChildren {
   ChatRoute: typeof ChatRoute
   DataProcessingRoute: typeof DataProcessingRoute
   KenyaHotlinesRoute: typeof KenyaHotlinesRoute
+  LoginRoute: typeof LoginRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  RegisterRoute: typeof RegisterRoute
+  SettingsRoute: typeof SettingsRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
 }
 
@@ -138,11 +177,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KenyaHotlinesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms-of-service': {
@@ -160,7 +220,10 @@ const rootRouteChildren: RootRouteChildren = {
   ChatRoute: ChatRoute,
   DataProcessingRoute: DataProcessingRoute,
   KenyaHotlinesRoute: KenyaHotlinesRoute,
+  LoginRoute: LoginRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  RegisterRoute: RegisterRoute,
+  SettingsRoute: SettingsRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
 }
 export const routeTree = rootRouteImport
