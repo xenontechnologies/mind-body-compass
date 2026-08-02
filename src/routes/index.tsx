@@ -10,6 +10,7 @@ import { Stats } from "../components/landing/stats";
 import { Pricing } from "../components/landing/pricing";
 import { Faq } from "../components/landing/faq";
 import { Investors } from "../components/landing/investors";
+import { Contact } from "../components/landing/contact";
 import { LandingFooter } from "../components/landing/landing-footer";
 
 export const Route = createFileRoute("/")({
@@ -49,6 +50,7 @@ function LandingPage() {
         <Pricing />
         <Faq />
         <Investors />
+        <Contact />
       </main>
       <LandingFooter />
     </div>

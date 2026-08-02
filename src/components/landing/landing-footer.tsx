@@ -1,20 +1,45 @@
 import { Link } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
 import { PlightWordmark } from "../plight-logo";
 import { CRISIS_NOTE } from "../../lib/crisis";
 
 const columns = [
   {
     title: "Product",
-    links: ["Mind Support", "Health Guide", "Severity scale", "Progress insights", "Pricing"],
+    links: [
+      { label: "Features", href: "#features" },
+      { label: "How It Works", href: "#how-it-works" },
+      { label: "Pricing", href: "#pricing" },
+      { label: "Severity scale", href: "#severity" },
+      { label: "Contact", href: "#contact" },
+    ],
   },
-  { title: "Company", links: ["About", "Mission", "Careers", "Press", "Partner with us"] },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "#about" },
+      { label: "Testimonials", href: "#testimonials" },
+      { label: "Partner with us", href: "#contact" },
+      { label: "Get started", href: "/chat" },
+    ],
+  },
   {
     title: "Legal",
-    links: ["Privacy policy", "Terms of service", "Data processing", "Accessibility"],
+    links: [
+      { label: "Privacy policy", href: "#faq" },
+      { label: "Terms of service", href: "#faq" },
+      { label: "Data processing", href: "#faq" },
+      { label: "Accessibility", href: "#faq" },
+    ],
   },
   {
     title: "Resources",
-    links: ["Article library", "Crisis hotlines", "Self-help tools", "For clinicians"],
+    links: [
+      { label: "FAQ", href: "#faq" },
+      { label: "Crisis hotlines", href: "#contact" },
+      { label: "Chat", href: "/chat" },
+      { label: "Mission", href: "#about" },
+    ],
   },
 ];
 
@@ -43,13 +68,22 @@ export function LandingFooter() {
                 <p className="label-xs">{col.title}</p>
                 <ul className="mt-3 space-y-2">
                   {col.links.map((link) => (
-                    <li key={link}>
-                      <a
-                        href="#top"
-                        className="text-xs text-muted-foreground transition-colors duration-150 hover:text-foreground"
-                      >
-                        {link}
-                      </a>
+                    <li key={link.label}>
+                      {link.href.startsWith("/") ? (
+                        <Link
+                          to={link.href}
+                          className="text-xs text-muted-foreground transition-colors duration-150 hover:text-foreground"
+                        >
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <a
+                          href={link.href}
+                          className="text-xs text-muted-foreground transition-colors duration-150 hover:text-foreground"
+                        >
+                          {link.label}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -66,11 +100,22 @@ export function LandingFooter() {
         <div className="mt-8 flex flex-col gap-3 border-t border-border pt-6 text-[11px] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Plight. All rights reserved.</p>
           <ul className="flex gap-4">
-            {["X", "LinkedIn", "Instagram", "GitHub"].map((s) => (
-              <li key={s}>
-                <a href="#top" className="transition-colors duration-150 hover:text-foreground">
-                  {s}
-                </a>
+            {[
+              { label: "X", href: "#contact" },
+              { label: "LinkedIn", href: "#about" },
+              { label: "Instagram", href: "#testimonials" },
+              { label: "GitHub", href: "/chat" },
+            ].map((s) => (
+              <li key={s.label}>
+                {s.href.startsWith("/") ? (
+                  <Link to={s.href} className="transition-colors duration-150 hover:text-foreground">
+                    {s.label}
+                  </Link>
+                ) : (
+                  <a href={s.href} className="transition-colors duration-150 hover:text-foreground">
+                    {s.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
