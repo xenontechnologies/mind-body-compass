@@ -26,9 +26,9 @@ const columns = [
   {
     title: "Legal",
     links: [
-      { label: "Privacy policy", href: "#faq" },
-      { label: "Terms of service", href: "#faq" },
-      { label: "Data processing", href: "#faq" },
+      { label: "Privacy policy", href: "/privacy-policy" },
+      { label: "Terms of service", href: "/terms-of-service" },
+      { label: "Data processing", href: "/data-processing" },
       { label: "Accessibility", href: "#faq" },
     ],
   },
@@ -36,7 +36,7 @@ const columns = [
     title: "Resources",
     links: [
       { label: "FAQ", href: "#faq" },
-      { label: "Crisis hotlines", href: "#contact" },
+      { label: "Crisis hotlines", href: "/kenya-hotlines" },
       { label: "Chat", href: "/chat" },
       { label: "Mission", href: "#about" },
     ],
@@ -101,7 +101,7 @@ export function LandingFooter() {
           <p>© {new Date().getFullYear()} Plight. All rights reserved.</p>
           <ul className="flex gap-4">
             {[
-              { label: "X", href: "#contact" },
+              { label: "X", href: "/privacy-policy" },
               { label: "LinkedIn", href: "#about" },
               { label: "Instagram", href: "#testimonials" },
               { label: "GitHub", href: "/chat" },

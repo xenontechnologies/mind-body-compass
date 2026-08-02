@@ -22,7 +22,7 @@ const contactMethods = [
     title: "Urgent help",
     body: "If this is a crisis, use your local emergency number or a crisis hotline immediately.",
     action: "See crisis guidance",
-    href: "#faq",
+    href: "/kenya-hotlines",
   },
 ];
 

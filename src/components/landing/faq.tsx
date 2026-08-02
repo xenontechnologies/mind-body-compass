@@ -1,4 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { Link } from "@tanstack/react-router";
 import { Section } from "./section";
 
 const faqs = [
@@ -17,6 +18,10 @@ const faqs = [
   {
     q: "How is my data stored and secured?",
     a: "Conversations are encrypted in transit and at rest, access is scoped to your account, and we never sell data or share it with advertisers. You can delete any conversation permanently, and deletion removes it from history and insights.",
+  },
+  {
+    q: "Where can I find Kenya emergency hotlines?",
+    a: "Use the Kenya crisis hotlines page for emergency numbers, hospital guidance, and immediate next steps if someone is at risk.",
   },
   {
     q: "What does it cost?",
@@ -50,7 +55,16 @@ export function Faq() {
               {item.q}
             </AccordionTrigger>
             <AccordionContent className="px-5 pb-4 text-xs leading-relaxed text-muted-foreground">
-              {item.a}
+              {item.q === "Where can I find Kenya emergency hotlines?" ? (
+                <span>
+                  {item.a} <Link to="/kenya-hotlines" className="text-foreground underline underline-offset-2">
+                    Open the Kenya hotline page
+                  </Link>
+                  .
+                </span>
+              ) : (
+                item.a
+              )}
             </AccordionContent>
           </AccordionItem>
         ))}
