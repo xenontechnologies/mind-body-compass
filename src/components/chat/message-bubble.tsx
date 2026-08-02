@@ -8,8 +8,8 @@ export function MessageBubble({
   connected,
 }: {
   message: ChatMessage;
-  onConnect?: () => void;
-  connected?: boolean;
+  onConnect?: (() => void) | undefined;
+  connected?: boolean | undefined;
 }) {
   const isUser = message.role === "user";
 

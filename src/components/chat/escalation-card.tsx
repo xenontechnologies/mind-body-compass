@@ -7,8 +7,8 @@ export function EscalationCard({
   connected = false,
 }: {
   reason: string;
-  onConnect?: () => void;
-  connected?: boolean;
+  onConnect?: (() => void) | undefined;
+  connected?: boolean | undefined;
 }) {
   return (
     <article className="rounded-lg border border-border-strong bg-surface p-4">
