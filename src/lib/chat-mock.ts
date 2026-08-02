@@ -97,7 +97,11 @@ function severityFrom(text: string, turns: number): { level: number; explanation
   };
 }
 
-export function generateReply(mode: ChatMode, userText: string, history: ChatMessage[]): ChatMessage {
+export function generateReply(
+  mode: ChatMode,
+  userText: string,
+  history: ChatMessage[],
+): ChatMessage {
   const userTurns = history.filter((m) => m.role === "user").length;
   let text: string;
   let card: MessageCard | undefined;
@@ -127,5 +131,11 @@ export function generateReply(mode: ChatMode, userText: string, history: ChatMes
     }
   }
 
-  return { id: createId(), role: "assistant", text, createdAt: Date.now(), ...(card ? { card } : {}) };
+  return {
+    id: createId(),
+    role: "assistant",
+    text,
+    createdAt: Date.now(),
+    ...(card ? { card } : {}),
+  };
 }

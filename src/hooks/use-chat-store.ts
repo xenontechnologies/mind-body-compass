@@ -52,9 +52,12 @@ export function useChatStore() {
 
     setConversations(seeded);
     setActiveIds({
-      mind: seeded.filter((c) => c.mode === "mind").sort((a, b) => b.updatedAt - a.updatedAt)[0]?.id ?? null,
+      mind:
+        seeded.filter((c) => c.mode === "mind").sort((a, b) => b.updatedAt - a.updatedAt)[0]?.id ??
+        null,
       health:
-        seeded.filter((c) => c.mode === "health").sort((a, b) => b.updatedAt - a.updatedAt)[0]?.id ?? null,
+        seeded.filter((c) => c.mode === "health").sort((a, b) => b.updatedAt - a.updatedAt)[0]
+          ?.id ?? null,
     });
     setHydrated(true);
   }, []);
@@ -68,7 +71,12 @@ export function useChatStore() {
     }
   }, [conversations, mode, hydrated]);
 
-  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+  useEffect(
+    () => () => {
+      if (timer.current) clearTimeout(timer.current);
+    },
+    [],
+  );
 
   const modeConversations = useMemo(
     () => conversations.filter((c) => c.mode === mode).sort((a, b) => b.updatedAt - a.updatedAt),
@@ -103,7 +111,9 @@ export function useChatStore() {
           return [conv, ...next];
         }
         const fallback = remaining[0];
-        setActiveIds((ids) => (ids[mode] === id && fallback ? { ...ids, [mode]: fallback.id } : ids));
+        setActiveIds((ids) =>
+          ids[mode] === id && fallback ? { ...ids, [mode]: fallback.id } : ids,
+        );
         return next;
       });
     },

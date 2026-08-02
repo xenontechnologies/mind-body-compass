@@ -19,7 +19,11 @@ export function SeverityCard({ level, explanation }: { level: number; explanatio
         <span className="text-xs text-muted-foreground">of 5</span>
       </p>
 
-      <div className="mt-3.5 flex gap-1" role="img" aria-label={`Severity ${info.level} of 5: ${info.name}`}>
+      <div
+        className="mt-3.5 flex gap-1"
+        role="img"
+        aria-label={`Severity ${info.level} of 5: ${info.name}`}
+      >
         {SEVERITY_LEVELS.map((l) => (
           <span
             key={l.level}

@@ -45,20 +45,21 @@ export function SeverityExplainer() {
           </h3>
           <ol className="mt-4 space-y-3 text-xs leading-relaxed text-muted-foreground">
             <li className="border-l border-border pl-3">
-              <span className="text-foreground">Continuous, quiet assessment.</span> Language signalling
-              hopelessness, self-harm risk, or acute crisis is flagged as the conversation unfolds.
+              <span className="text-foreground">Continuous, quiet assessment.</span> Language
+              signalling hopelessness, self-harm risk, or acute crisis is flagged as the
+              conversation unfolds.
             </li>
             <li className="border-l border-border pl-3">
-              <span className="text-foreground">An escalation card appears inline.</span> Calm, plainly
-              worded, with hotline numbers shown immediately and persistently.
+              <span className="text-foreground">An escalation card appears inline.</span> Calm,
+              plainly worded, with hotline numbers shown immediately and persistently.
             </li>
             <li className="border-l border-border pl-3">
               <span className="text-foreground">A licensed professional is offered.</span> One tap
               requests a psychiatrist from our network — you can keep chatting while you wait.
             </li>
             <li className="border-l border-border pl-3">
-              <span className="text-foreground">Nothing is forced.</span> You stay in control of what is
-              shared and with whom.
+              <span className="text-foreground">Nothing is forced.</span> You stay in control of
+              what is shared and with whom.
             </li>
           </ol>
         </article>
@@ -69,10 +70,10 @@ export function SeverityExplainer() {
             AI never replaces professional care
           </h3>
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Plight is a bridge, not a destination. Mind Support offers support, not therapy. Health Guide
-            offers guidance, not diagnosis or treatment. Both are designed to shorten the distance between
-            the moment you notice something and the moment a qualified human is involved — and to make the
-            wait less lonely.
+            Plight is a bridge, not a destination. Mind Support offers support, not therapy. Health
+            Guide offers guidance, not diagnosis or treatment. Both are designed to shorten the
+            distance between the moment you notice something and the moment a qualified human is
+            involved — and to make the wait less lonely.
           </p>
           <a
             href="#faq"

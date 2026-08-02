@@ -21,7 +21,9 @@ export function PlightWordmark({ className = "" }: { className?: string }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
       <PlightMark className="h-[18px] w-[18px] text-foreground" />
-      <span className="text-sm font-semibold tracking-[0.22em] text-foreground uppercase">Plight</span>
+      <span className="text-sm font-semibold tracking-[0.22em] text-foreground uppercase">
+        Plight
+      </span>
     </span>
   );
 }

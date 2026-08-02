@@ -8,8 +8,14 @@ const columns = [
     links: ["Mind Support", "Health Guide", "Severity scale", "Progress insights", "Pricing"],
   },
   { title: "Company", links: ["About", "Mission", "Careers", "Press", "Partner with us"] },
-  { title: "Legal", links: ["Privacy policy", "Terms of service", "Data processing", "Accessibility"] },
-  { title: "Resources", links: ["Article library", "Crisis hotlines", "Self-help tools", "For clinicians"] },
+  {
+    title: "Legal",
+    links: ["Privacy policy", "Terms of service", "Data processing", "Accessibility"],
+  },
+  {
+    title: "Resources",
+    links: ["Article library", "Crisis hotlines", "Self-help tools", "For clinicians"],
+  },
 ];
 
 export function LandingFooter() {
@@ -20,8 +26,8 @@ export function LandingFooter() {
           <div>
             <PlightWordmark />
             <p className="mt-4 max-w-xs text-xs leading-relaxed text-muted-foreground">
-              A calm place for mental health support and medical guidance — with a real professional on
-              the other side when you need one.
+              A calm place for mental health support and medical guidance — with a real professional
+              on the other side when you need one.
             </p>
             <Link
               to="/chat"

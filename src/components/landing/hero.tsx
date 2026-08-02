@@ -13,10 +13,11 @@ export function Hero() {
             Guidance you can trust.
           </h1>
           <p className="mt-5 max-w-xl text-sm leading-relaxed text-secondary-foreground md:text-base">
-            Plight pairs two purpose-built assistants in one calm space: <em className="not-italic text-foreground">Mind Support</em> for
-            emotional wellbeing, and <em className="not-italic text-foreground">Health Guide</em> for understanding physical symptoms
-            with a clear 5-point severity scale. When something looks serious, we bridge you to a real
-            licensed professional.
+            Plight pairs two purpose-built assistants in one calm space:{" "}
+            <em className="not-italic text-foreground">Mind Support</em> for emotional wellbeing,
+            and <em className="not-italic text-foreground">Health Guide</em> for understanding
+            physical symptoms with a clear 5-point severity scale. When something looks serious, we
+            bridge you to a real licensed professional.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -36,8 +37,8 @@ export function Hero() {
           </div>
 
           <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
-            Plight is a support and guidance tool. It does not diagnose, treat, or replace professional
-            care.
+            Plight is a support and guidance tool. It does not diagnose, treat, or replace
+            professional care.
           </p>
         </div>
 
@@ -64,8 +65,8 @@ function ChatPreview() {
           I've been anxious all week and I'm not sleeping much.
         </PreviewBubble>
         <PreviewBubble role="assistant">
-          That sounds exhausting. Let's slow it down together — when did the restless nights start, and
-          what does the anxiety feel like in your body?
+          That sounds exhausting. Let's slow it down together — when did the restless nights start,
+          and what does the anxiety feel like in your body?
         </PreviewBubble>
         <PreviewBubble role="user">Mostly a tight chest. It starts around midnight.</PreviewBubble>
         <div className="rounded-md border border-border-strong bg-surface p-3">
@@ -86,7 +87,10 @@ function ChatPreview() {
 
       <div className="mt-4 flex items-center gap-2 rounded-md border border-border bg-surface px-3 py-2">
         <span className="text-xs text-disabled">Type how you're feeling…</span>
-        <span className="ml-auto h-3.5 w-3.5 rounded-sm border border-border-strong" aria-hidden="true" />
+        <span
+          className="ml-auto h-3.5 w-3.5 rounded-sm border border-border-strong"
+          aria-hidden="true"
+        />
       </div>
     </div>
   );

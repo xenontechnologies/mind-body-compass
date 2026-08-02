@@ -87,10 +87,7 @@ export function Features() {
     >
       <ul className="grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
         {features.map(({ icon: Icon, title, body }) => (
-          <li
-            key={title}
-            className="bg-card p-5 transition-colors duration-150 hover:bg-hover"
-          >
+          <li key={title} className="bg-card p-5 transition-colors duration-150 hover:bg-hover">
             <Icon className="h-4.5 w-4.5 text-secondary-foreground" strokeWidth={1.4} />
             <h3 className="mt-3.5 text-sm font-medium text-foreground">{title}</h3>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{body}</p>

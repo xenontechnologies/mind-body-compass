@@ -1,8 +1,7 @@
 export type ChatMode = "mind" | "health";
 
 export type MessageCard =
-  | { kind: "escalation"; reason: string }
-  | { kind: "severity"; level: number; explanation: string };
+  { kind: "escalation"; reason: string } | { kind: "severity"; level: number; explanation: string };
 
 export type ChatRole = "user" | "assistant";
 

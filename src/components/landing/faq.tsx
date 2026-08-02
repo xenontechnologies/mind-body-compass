@@ -1,9 +1,4 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { Section } from "./section";
 
 const faqs = [
@@ -40,7 +35,11 @@ const faqs = [
 export function Faq() {
   return (
     <Section id="faq" label="FAQ" title="Questions we get asked most">
-      <Accordion type="single" collapsible className="overflow-hidden rounded-lg border border-border bg-card">
+      <Accordion
+        type="single"
+        collapsible
+        className="overflow-hidden rounded-lg border border-border bg-card"
+      >
         {faqs.map((item, i) => (
           <AccordionItem
             key={item.q}

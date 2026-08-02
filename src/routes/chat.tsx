@@ -70,7 +70,10 @@ function ChatPage() {
         <header className="border-b border-border bg-nav px-4 py-3 md:px-6">
           <ChatModeToggle mode={mode} onChange={setMode} />
           <div className="mt-3 flex items-start gap-2.5 transition-opacity duration-150">
-            <ModeIcon className="mt-0.5 h-4 w-4 shrink-0 text-secondary-foreground" strokeWidth={1.5} />
+            <ModeIcon
+              className="mt-0.5 h-4 w-4 shrink-0 text-secondary-foreground"
+              strokeWidth={1.5}
+            />
             <div>
               <p className="text-xs font-medium text-foreground">{meta.name}</p>
               <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">
@@ -82,7 +85,9 @@ function ChatPage() {
 
         <div className="min-h-0 flex-1 overflow-y-auto px-4 py-6 md:px-6">
           <div className="mx-auto w-full max-w-3xl space-y-5">
-            {!hydrated && <p className="text-xs text-muted-foreground">Loading your conversation…</p>}
+            {!hydrated && (
+              <p className="text-xs text-muted-foreground">Loading your conversation…</p>
+            )}
             {active?.messages.map((message) => (
               <MessageBubble
                 key={message.id}
@@ -105,7 +110,9 @@ function ChatPage() {
               }
               onSend={send}
             />
-            <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">{meta.disclaimer}</p>
+            <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+              {meta.disclaimer}
+            </p>
           </div>
         </div>
       </div>

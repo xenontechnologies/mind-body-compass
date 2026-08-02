@@ -75,14 +75,22 @@ export function Pricing() {
               )}
             </div>
             <p className="mt-4 flex items-baseline gap-1.5">
-              <span className="text-2xl font-semibold tracking-tight text-foreground">{plan.price}</span>
+              <span className="text-2xl font-semibold tracking-tight text-foreground">
+                {plan.price}
+              </span>
               <span className="text-xs text-muted-foreground">{plan.cadence}</span>
             </p>
             <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{plan.summary}</p>
             <ul className="mt-5 space-y-2.5 border-t border-border pt-5">
               {plan.features.map((f) => (
-                <li key={f} className="flex gap-2 text-xs leading-relaxed text-secondary-foreground">
-                  <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" strokeWidth={1.6} />
+                <li
+                  key={f}
+                  className="flex gap-2 text-xs leading-relaxed text-secondary-foreground"
+                >
+                  <Check
+                    className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground"
+                    strokeWidth={1.6}
+                  />
                   {f}
                 </li>
               ))}

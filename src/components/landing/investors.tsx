@@ -10,9 +10,9 @@ export function Investors() {
             Building the future of accessible mental health support
           </h2>
           <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-            We're closing the gap between the moment someone needs help and the moment a qualified human
-            is involved — with clinical oversight, transparent escalation, and privacy as a design
-            constraint rather than a policy page.
+            We're closing the gap between the moment someone needs help and the moment a qualified
+            human is involved — with clinical oversight, transparent escalation, and privacy as a
+            design constraint rather than a policy page.
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
