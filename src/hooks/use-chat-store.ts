@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { generateReply } from "../lib/chat-mock";
+import { generateReply } from "../lib/chat-engine";
 import { createId, MODES, type ChatMode, type Conversation } from "../lib/chat-types";
 
 const STORAGE_KEY = "plight-chat-v1";
@@ -30,7 +30,6 @@ export function useChatStore() {
   });
   const [typing, setTyping] = useState(false);
   const [hydrated, setHydrated] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     let loaded: Conversation[] = [];
@@ -71,12 +70,6 @@ export function useChatStore() {
     }
   }, [conversations, mode, hydrated]);
 
-  useEffect(
-    () => () => {
-      if (timer.current) clearTimeout(timer.current);
-    },
-    [],
-  );
 
   const modeConversations = useMemo(
     () => conversations.filter((c) => c.mode === mode).sort((a, b) => b.updatedAt - a.updatedAt),
@@ -147,20 +140,18 @@ export function useChatStore() {
 
       setTyping(true);
       const historyForReply = [...active.messages, userMessage];
-      timer.current = setTimeout(
-        () => {
-          const reply = generateReply(active.mode, trimmed, historyForReply);
-          setConversations((prev) =>
-            prev.map((c) =>
-              c.id === conversationId
-                ? { ...c, messages: [...c.messages, reply], updatedAt: Date.now() }
-                : c,
-            ),
-          );
-          setTyping(false);
-        },
-        700 + Math.random() * 500,
-      );
+      const fetchReply = async () => {
+        const reply = await generateReply(active.mode, trimmed, historyForReply);
+        setConversations((prev) =>
+          prev.map((c) =>
+            c.id === conversationId
+              ? { ...c, messages: [...c.messages, reply], updatedAt: Date.now() }
+              : c,
+          ),
+        );
+        setTyping(false);
+      };
+      fetchReply();
     },
     [active, typing],
   );

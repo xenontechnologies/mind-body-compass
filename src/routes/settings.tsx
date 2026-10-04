@@ -50,7 +50,7 @@ function SettingsPage() {
       <AppPageNav title="Settings" backLabel="Back" homeLabel="Landing" />
       <main className="mx-auto w-full max-w-6xl px-6 py-10 md:py-16">
         <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
-          <aside className="rounded-lg border border-border bg-surface p-5">
+          <aside className="rounded-lg border border-border bg-surface p-5 lg:sticky lg:top-24 self-start">
             <p className="label-xs">Account</p>
             <nav className="mt-4 space-y-2 text-xs text-secondary-foreground">
               {settingsSections.map((section) => (
@@ -66,7 +66,7 @@ function SettingsPage() {
           </aside>
 
           <div className="space-y-6">
-            <Card className="border-border shadow-none">
+            <Card id="profile" className="border-border shadow-none">
               <CardHeader>
                 <CardTitle className="text-sm">Profile</CardTitle>
                 <CardDescription>Basic information tied to your account.</CardDescription>
@@ -81,7 +81,7 @@ function SettingsPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-border shadow-none">
+            <Card id="security" className="border-border shadow-none">
               <CardHeader>
                 <CardTitle className="text-sm">Security</CardTitle>
                 <CardDescription>Account protection and session control.</CardDescription>
@@ -93,7 +93,7 @@ function SettingsPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-border shadow-none">
+            <Card id="notifications" className="border-border shadow-none">
               <CardHeader>
                 <CardTitle className="text-sm">Notifications</CardTitle>
                 <CardDescription>Choose what reminders and updates you receive.</CardDescription>
@@ -105,7 +105,7 @@ function SettingsPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-border shadow-none">
+            <Card id="privacy" className="border-border shadow-none">
               <CardHeader>
                 <CardTitle className="text-sm">Privacy</CardTitle>
                 <CardDescription>Control your data and conversation footprint.</CardDescription>
@@ -117,7 +117,7 @@ function SettingsPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-border shadow-none">
+            <Card id="accessibility-and-appearance" className="border-border shadow-none">
               <CardHeader>
                 <CardTitle className="text-sm">Accessibility and appearance</CardTitle>
                 <CardDescription>Interface comfort settings and theme controls.</CardDescription>

@@ -70,13 +70,13 @@ export function ChatSidebar({
       </div>
 
       <div className="mt-auto space-y-1 border-t border-border p-3">
-        <button
-          type="button"
+        <Link
+          to="/settings"
           className="inline-flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-xs text-muted-foreground transition-colors duration-150 hover:bg-hover hover:text-foreground"
         >
           <Settings className="h-3.5 w-3.5" strokeWidth={1.5} />
           Settings
-        </button>
+        </Link>
         <Link
           to="/"
           className="inline-flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-xs text-muted-foreground transition-colors duration-150 hover:bg-hover hover:text-foreground"
