@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Chrome, Mail, Microscope } from "lucide-react";
 import { AppPageNav } from "../components/app-page-nav";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
@@ -16,6 +16,7 @@ export const Route = createFileRoute("/login")({
 });
 
 function LoginPage() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background">
       <AppPageNav title="Login" backLabel="Back" homeLabel="Landing" />
@@ -34,11 +35,11 @@ function LoginPage() {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              <Button className="h-11 justify-start rounded-md bg-card px-4 text-sm text-foreground shadow-none" variant="outline">
+              <Button onClick={() => navigate({ to: "/chat" })} className="h-11 justify-start rounded-md bg-card px-4 text-sm text-foreground shadow-none" variant="outline">
                 <Chrome className="h-4 w-4" />
                 Continue with Google
               </Button>
-              <Button className="h-11 justify-start rounded-md bg-card px-4 text-sm text-foreground shadow-none" variant="outline">
+              <Button onClick={() => navigate({ to: "/chat" })} className="h-11 justify-start rounded-md bg-card px-4 text-sm text-foreground shadow-none" variant="outline">
                 <Microscope className="h-4 w-4" />
                 Continue with Microsoft
               </Button>
@@ -58,7 +59,7 @@ function LoginPage() {
                   </label>
                   <Input id="login-email" type="email" placeholder="you@example.com" />
                 </div>
-                <Button className="w-full rounded-md" type="button">
+                <Button onClick={() => navigate({ to: "/chat" })} className="w-full rounded-md" type="button">
                   Send magic link
                   <Mail className="h-4 w-4" />
                 </Button>
