@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Chrome, Mail, Microscope } from "lucide-react";
+import { ArrowRight, Chrome, Mail } from "lucide-react";
 import { AppPageNav } from "../components/app-page-nav";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
@@ -33,14 +33,10 @@ function RegisterPage() {
               </p>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-1">
               <Button className="h-11 justify-start rounded-md bg-card px-4 text-sm text-foreground shadow-none" variant="outline">
                 <Chrome className="h-4 w-4" />
                 Sign up with Google
-              </Button>
-              <Button className="h-11 justify-start rounded-md bg-card px-4 text-sm text-foreground shadow-none" variant="outline">
-                <Microscope className="h-4 w-4" />
-                Sign up with Microsoft
               </Button>
             </div>
 

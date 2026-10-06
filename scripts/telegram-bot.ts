@@ -35,14 +35,34 @@ bot.on("message:text", async (ctx) => {
   await ctx.replyWithChatAction("typing");
 
   try {
-    // TODO: Connect this to your AI Model (AIMLAPI, OpenAI, etc.)
-    // For now, it simply echoes back to prove it works.
-    // Example of calling your model:
-    // const aiResponse = await myModel.generate(userMessage);
-    const aiResponse = `You said: "${userMessage}". (This is where the AI model response will go!)`;
+    // Call AIMLAPI to get the AI response
+    const response = await fetch(`${process.env.VITE_AIMLAPI_BASE_URL}/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.VITE_AIMLAPI_KEY}`
+      },
+      body: JSON.stringify({
+        model: process.env.VITE_AIMLAPI_MODEL,
+        messages: [
+          { role: "developer", content: "You are a helpful AI assistant for Mind Body Compass. Keep your answers concise and friendly." },
+          { role: "user", content: userMessage }
+        ],
+      })
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error("API Response Error Body:", errorBody);
+      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const aiResponse = data.choices[0].message.content;
 
     // Reply to the user
     await ctx.reply(aiResponse);
+
   } catch (error) {
     console.error("Error processing message:", error);
     await ctx.reply(
