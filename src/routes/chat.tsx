@@ -9,6 +9,8 @@ import { MessageBubble } from "../components/chat/message-bubble";
 import { TypingIndicator } from "../components/chat/typing-indicator";
 import { useChatStore } from "../hooks/use-chat-store";
 import { MODES } from "../lib/chat-types";
+import { supabase } from "../lib/supabase";
+import { redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/chat")({
   head: () => ({
@@ -29,6 +31,14 @@ export const Route = createFileRoute("/chat")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  beforeLoad: async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      throw redirect({
+        to: "/login",
+      });
+    }
+  },
   component: ChatPage,
 });
 

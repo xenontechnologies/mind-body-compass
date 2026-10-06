@@ -1,9 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Chrome, Mail } from "lucide-react";
+import { useState, useEffect } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ArrowRight, Chrome, Mail, Loader2 } from "lucide-react";
 import { AppPageNav } from "../components/app-page-nav";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
+import { supabase } from "../lib/supabase";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/register")({
   head: () => ({
@@ -16,6 +19,66 @@ export const Route = createFileRoute("/register")({
 });
 
 function RegisterPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
+  const [isLoadingMagicLink, setIsLoadingMagicLink] = useState(false);
+
+  useEffect(() => {
+    // Check if user is already logged in
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        navigate({ to: "/chat" });
+      }
+    });
+
+    // Listen for login events (like when returning from Google OAuth or Magic Link)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        navigate({ to: "/chat" });
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  const handleGoogleSignup = async () => {
+    setIsLoadingGoogle(true);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/chat`,
+      },
+    });
+    if (error) {
+      toast.error(error.message);
+      setIsLoadingGoogle(false);
+    }
+  };
+
+  const handleMagicLinkSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      toast.error("Please enter your email");
+      return;
+    }
+    
+    setIsLoadingMagicLink(true);
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/chat`,
+      },
+    });
+    
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Registration link sent! Check your email.");
+    }
+    setIsLoadingMagicLink(false);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <AppPageNav title="Create account" backLabel="Back" homeLabel="Landing" />
@@ -28,14 +91,13 @@ function RegisterPage() {
                 Set up your account and preferences.
               </h2>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                This page is intentionally static for now. It shows the intended layout and the auth
-                entry points without wiring backend logic.
+                Sign up quickly with Google or use a magic link sent to your email.
               </p>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-1">
-              <Button className="h-11 justify-start rounded-md bg-card px-4 text-sm text-foreground shadow-none" variant="outline">
-                <Chrome className="h-4 w-4" />
+              <Button onClick={handleGoogleSignup} disabled={isLoadingGoogle || isLoadingMagicLink} className="h-11 justify-start rounded-md bg-card px-4 text-sm text-foreground shadow-none" variant="outline">
+                {isLoadingGoogle ? <Loader2 className="h-4 w-4 animate-spin" /> : <Chrome className="h-4 w-4" />}
                 Sign up with Google
               </Button>
             </div>
@@ -44,20 +106,30 @@ function RegisterPage() {
               <CardHeader>
                 <CardTitle className="text-sm">Email registration link</CardTitle>
                 <CardDescription>
-                  Enter your email and we’ll send a registration link later.
+                  Enter your email and we’ll send a secure registration link.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-xs text-muted-foreground" htmlFor="register-email">
-                    Email address
-                  </label>
-                  <Input id="register-email" type="email" placeholder="you@example.com" />
-                </div>
-                <Button className="w-full rounded-md" type="button">
-                  Send registration link
-                  <Mail className="h-4 w-4" />
-                </Button>
+              <CardContent>
+                <form onSubmit={handleMagicLinkSignup} className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-xs text-muted-foreground" htmlFor="register-email">
+                      Email address
+                    </label>
+                    <Input 
+                      id="register-email" 
+                      type="email" 
+                      placeholder="you@example.com" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={isLoadingMagicLink || isLoadingGoogle}
+                      required
+                    />
+                  </div>
+                  <Button disabled={isLoadingMagicLink || isLoadingGoogle} className="w-full rounded-md" type="submit">
+                    {isLoadingMagicLink ? "Sending link..." : "Send registration link"}
+                    {!isLoadingMagicLink && <Mail className="h-4 w-4 ml-2" />}
+                  </Button>
+                </form>
               </CardContent>
             </Card>
           </section>

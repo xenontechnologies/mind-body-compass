@@ -7,6 +7,14 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  vite: {
+    server: {
+      allowedHosts: [
+        "ivan-undared-semiseriously.ngrok-free.dev",
+        ".ngrok-free.dev" // Also allow any ngrok-free.dev subdomains in case it changes
+      ],
+    },
+  },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this

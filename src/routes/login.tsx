@@ -1,9 +1,12 @@
+import { useState, useEffect } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowRight, Chrome, Mail } from "lucide-react";
+import { ArrowRight, Chrome, Mail, Loader2 } from "lucide-react";
 import { AppPageNav } from "../components/app-page-nav";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
+import { supabase } from "../lib/supabase";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -17,6 +20,65 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
+  const [isLoadingMagicLink, setIsLoadingMagicLink] = useState(false);
+
+  useEffect(() => {
+    // Check if user is already logged in
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        navigate({ to: "/chat" });
+      }
+    });
+
+    // Listen for login events (like when returning from Google OAuth or Magic Link)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        navigate({ to: "/chat" });
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  const handleGoogleLogin = async () => {
+    setIsLoadingGoogle(true);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/chat`,
+      },
+    });
+    if (error) {
+      toast.error(error.message);
+      setIsLoadingGoogle(false);
+    }
+  };
+
+  const handleMagicLink = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      toast.error("Please enter your email");
+      return;
+    }
+    
+    setIsLoadingMagicLink(true);
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/chat`,
+      },
+    });
+    
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Magic link sent! Check your email.");
+    }
+    setIsLoadingMagicLink(false);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <AppPageNav title="Login" backLabel="Back" homeLabel="Landing" />
@@ -29,14 +91,13 @@ function LoginPage() {
                 Sign in to continue your conversations and settings.
               </h2>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                This page is presentational only. The buttons below are wired as UI affordances and
-                do not implement authentication yet.
+                Log in securely using Google or receive a magic link directly to your email.
               </p>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-1">
-              <Button onClick={() => navigate({ to: "/chat" })} className="h-11 justify-start rounded-md bg-card px-4 text-sm text-foreground shadow-none" variant="outline">
-                <Chrome className="h-4 w-4" />
+              <Button onClick={handleGoogleLogin} disabled={isLoadingGoogle || isLoadingMagicLink} className="h-11 justify-start rounded-md bg-card px-4 text-sm text-foreground shadow-none" variant="outline">
+                {isLoadingGoogle ? <Loader2 className="h-4 w-4 animate-spin" /> : <Chrome className="h-4 w-4" />}
                 Continue with Google
               </Button>
             </div>
@@ -45,20 +106,30 @@ function LoginPage() {
               <CardHeader>
                 <CardTitle className="text-sm">Email login link</CardTitle>
                 <CardDescription>
-                  Send a sign-in link to your email address. Functionality is not implemented yet.
+                  Send a secure, passwordless sign-in link to your email address.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-xs text-muted-foreground" htmlFor="login-email">
-                    Email address
-                  </label>
-                  <Input id="login-email" type="email" placeholder="you@example.com" />
-                </div>
-                <Button onClick={() => navigate({ to: "/chat" })} className="w-full rounded-md" type="button">
-                  Send magic link
-                  <Mail className="h-4 w-4" />
-                </Button>
+              <CardContent>
+                <form onSubmit={handleMagicLink} className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-xs text-muted-foreground" htmlFor="login-email">
+                      Email address
+                    </label>
+                    <Input 
+                      id="login-email" 
+                      type="email" 
+                      placeholder="you@example.com" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={isLoadingMagicLink || isLoadingGoogle}
+                      required
+                    />
+                  </div>
+                  <Button disabled={isLoadingMagicLink || isLoadingGoogle} className="w-full rounded-md" type="submit">
+                    {isLoadingMagicLink ? "Sending link..." : "Send magic link"}
+                    {!isLoadingMagicLink && <Mail className="h-4 w-4 ml-2" />}
+                  </Button>
+                </form>
               </CardContent>
             </Card>
           </section>
