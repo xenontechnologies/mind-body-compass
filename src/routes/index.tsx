@@ -1,4 +1,6 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { supabase } from "../lib/supabase";
 import { LandingNav } from "../components/landing/landing-nav";
 import { Hero } from "../components/landing/hero";
 import { TrustBar } from "../components/landing/trust-bar";
@@ -36,6 +38,25 @@ export const Route = createFileRoute("/")({
 });
 
 function LandingPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user is already logged in, and if so, redirect them directly to the app.
+    // This perfectly handles the case where Supabase's magic link fallback sends them to `/` instead of `/chat`.
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        navigate({ to: "/chat" });
+      }
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        navigate({ to: "/chat" });
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
   return (
     <div className="min-h-screen bg-background">
       <LandingNav />

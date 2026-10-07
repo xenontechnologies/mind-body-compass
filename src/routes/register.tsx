@@ -74,7 +74,7 @@ function RegisterPage() {
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success("Registration link sent! Check your email.");
+      navigate({ to: "/check-email", search: { email } as any });
     }
     setIsLoadingMagicLink(false);
   };

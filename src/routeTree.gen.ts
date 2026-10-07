@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ChatRouteImport } from './routes/chat'
+import { Route as CheckEmailRouteImport } from './routes/check-email'
 import { Route as DataProcessingRouteImport } from './routes/data-processing'
 import { Route as KenyaHotlinesRouteImport } from './routes/kenya-hotlines'
 import { Route as LoginRouteImport } from './routes/login'
@@ -27,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
 const ChatRoute = ChatRouteImport.update({
   id: '/chat',
   path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckEmailRoute = CheckEmailRouteImport.update({
+  id: '/check-email',
+  path: '/check-email',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DataProcessingRoute = DataProcessingRouteImport.update({
@@ -68,6 +74,7 @@ const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
+  '/check-email': typeof CheckEmailRoute
   '/data-processing': typeof DataProcessingRoute
   '/kenya-hotlines': typeof KenyaHotlinesRoute
   '/login': typeof LoginRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
+  '/check-email': typeof CheckEmailRoute
   '/data-processing': typeof DataProcessingRoute
   '/kenya-hotlines': typeof KenyaHotlinesRoute
   '/login': typeof LoginRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
+  '/check-email': typeof CheckEmailRoute
   '/data-processing': typeof DataProcessingRoute
   '/kenya-hotlines': typeof KenyaHotlinesRoute
   '/login': typeof LoginRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/chat'
+    | '/check-email'
     | '/data-processing'
     | '/kenya-hotlines'
     | '/login'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/chat'
+    | '/check-email'
     | '/data-processing'
     | '/kenya-hotlines'
     | '/login'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/chat'
+    | '/check-email'
     | '/data-processing'
     | '/kenya-hotlines'
     | '/login'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ChatRoute: typeof ChatRoute
+  CheckEmailRoute: typeof CheckEmailRoute
   DataProcessingRoute: typeof DataProcessingRoute
   KenyaHotlinesRoute: typeof KenyaHotlinesRoute
   LoginRoute: typeof LoginRoute
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/chat'
       fullPath: '/chat'
       preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/check-email': {
+      id: '/check-email'
+      path: '/check-email'
+      fullPath: '/check-email'
+      preLoaderRoute: typeof CheckEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/data-processing': {
@@ -218,6 +238,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ChatRoute: ChatRoute,
+  CheckEmailRoute: CheckEmailRoute,
   DataProcessingRoute: DataProcessingRoute,
   KenyaHotlinesRoute: KenyaHotlinesRoute,
   LoginRoute: LoginRoute,
